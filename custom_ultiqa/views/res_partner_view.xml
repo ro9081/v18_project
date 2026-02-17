@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_partner_form_inherited_ultiqa_custom" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- <xpath expr="//group[@name='acc_agent']" position="replace">
+                <group/>
+            </xpath> -->
+            <xpath expr="//div[@class='o_address_format']" position="after">
+                <field name="ultiqa_contact_type" widget="selection"/>
+                <field name="ultiqa_membership_code" invisible="ultiqa_contact_type != 'member'"/>
+                <field name="ultiqa_agent_commission" invisible="1"/>
+                <field name="agent" invisible="1"/>
+                <field name="commission" invisible="ultiqa_contact_type != 'agent'" required="agent == False"/>
+                <field name="ultiqa_time_share_balance" invisible="ultiqa_contact_type != 'member'" readonly="1" force_save="1"/>
+            </xpath>
+            <page name="contact_addresses" position="after">
+                <page string="Booking History" name="booking_history" invisible="ultiqa_contact_type != 'member'">
+                    <field name="ultiqa_booking_history_line">
+                        <list create="0" edit="0" editable="bottom" delete="0">
+                            <field name="id"/>
+                            <field name="partner_id"/>
+                            <field name="order_date"/>
+                            <field name="checkin_date"/>
+                            <field name="checkout_date"/>
+                            <field name="categ_id"/>
+                            <field name="room_number"/>
+                            <field name="number_of_days"/>
+                           <field name="is_balance_used" column_invisible="1"/>
+                            <field name="cost_price" column_invisible="1"/>
+                            <field name="subtotal" column_invisible="1"/>
+                            <field name="status" widget="statusbar" statusbar_visible="draft,confirm,done,cancel"/>
+                        </list>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="view_partner_form_inherited_hotel_management" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="hotel_management.view_partner_property_form_commission"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='acc_agent']" position="replace">
+                <group/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

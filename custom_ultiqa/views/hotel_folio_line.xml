@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_hotel_folio1_form_ultiqa" model="ir.ui.view">
+    <field name="name">hotel.folio.line.ultiqa</field>
+    <field name="model">hotel.folio</field>
+    <field name="inherit_id" ref="hotel.view_hotel_folio1_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="/form/sheet/notebook/page[@name='Folio']/field[@name='room_lines']/form[@name='Room Line']/notebook/page[@name='Folio Line']/group[2]/group[1]" position="inside">
+            <field name="ultiqa_via" readonly="1" force_save="1"/>
+            <field name="skip_subtotal_compute" readonly="1" force_save="1"/>
+            <field name="is_greater_checkout" invisible="1" force_save="1"/>
+        </xpath>
+        <xpath expr="/form/sheet/notebook/page[@name='Folio']/field[@name='room_lines']/form[@name='Room Line']/notebook/page[@name='Folio Line']/group[2]/group[2]" position="inside">
+            <field name="ultiqa_number_of_bookings" readonly="1" force_save="1" invisible="ultiqa_via != 'Member'"/>
+            <field name="ultiqa_member_of_bookings" readonly="1" force_save="1" invisible="ultiqa_via != 'Member'"/>
+        </xpath>
+        <xpath expr="/form/sheet/notebook/page[@name='History']" position="attributes">
+             <attribute name="invisible">1</attribute>
+        </xpath>
+          <xpath expr="/form/sheet/notebook/page[@name='table_reservations']" position="attributes">
+             <attribute name="invisible">1</attribute>
+        </xpath>
+    </field>
+</record>
+</odoo>

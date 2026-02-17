@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_hotel_reservation_line_from_ultiqa" model="ir.ui.view">
+        <field name="name">hotel.reservation.line.form</field>
+        <field name="model">hotel.reservation.line</field>
+        <field name="inherit_id" ref="hotel_management.view_hotel_reservation_line_from"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='number_of_days']" position="after">
+                <field name="ultiqa_agent_booking_days" invisible="via != 'Member'" force_save="1" readonly="1"/>
+                <field name="via"/>
+                <field name="skip_subtotal_compute"/>
+<!--                <field name="ultiqa_booking_through_agent"/>-->
+            </xpath>
+        </field>
+    </record>
+
+     <record id="view_hotel_reservation_form1_from_ultiqa" model="ir.ui.view">
+        <field name="name">hotel.reservation.form.inherited</field>
+        <field name="model">hotel.reservation</field>
+        <field name="inherit_id" ref="hotel_management.view_hotel_reservation_form1"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reservation_line']/list/field[@name='room_number']" position="after">
+                <field name="days_of_stay"/>
+            </xpath>
+            <xpath expr="//field[@name='agent_id']" position="attributes">
+                 <attribute name="domain">[('ultiqa_contact_type','=','agent')]</attribute>
+             </xpath>
+            <xpath expr="//field[@name='agent_id']" position="after">
+                <field name="member_id" invisible="via != 'Member'" required="via == 'Member'" domain="[('ultiqa_contact_type', '=','member')]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

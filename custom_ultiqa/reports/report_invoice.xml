@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="custom_ultiqa_report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//t[@t-call='account.document_tax_totals_company_currency_template']" position="replace">
+        </xpath>
+    </template>
+</odoo>

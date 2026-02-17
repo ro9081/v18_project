@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="RoomLine_inherit_hide_zero_price" t-inherit="RoomLine" t-inherit-mode="extension">
+        <xpath expr="//tr" position="replace">
+                <tr class='room-line' t-att-data-id='room.id'>
+                    <t t-if="room.is_greater_checkout">
+                    <td><t t-esc='room.order_line_id[1]' /></td>
+                         <td t-att-data-folio-id="room.folio_id[0]"><t t-esc='room.folio_id[1]' /></td>
+                         <td t-att-data-cust-id='room.partner_id'><t t-esc='room.partner_name' /></td>
+<!--                         <td><t t-esc='room.price_subtotal' /></td>-->
+                         <td><t t-esc='room.checkin_date' /></td>
+                         <td><t t-esc='room.checkout_date' /></td>
+                     </t>
+                </tr>
+        </xpath>
+    </t>
+<!--    <t t-name="custom_roomlist_th_inherit" t-inherit="RoomListScreenWidget" t-inherit-mode="extension">-->
+<!--        <xpath expr="//thead/tr/th[normalize-space(text())='Customer Name']" position="after">-->
+<!--            <th>Price Subtotal</th>-->
+<!--        </xpath>-->
+<!--    </t>-->
+    <t t-name="RoomListScreenWidget_inherit_searchbar" t-inherit="RoomListScreenWidget" t-inherit-mode="extension">
+    <xpath expr="//span[@class='button back']" position="before">
+         <div class="search-bar-container" style="margin: 10px 0; width: 100%;">
+            <input type="text" class="search-input"
+                   placeholder="Search Room Name..."
+                   onkeyup="filterRoomRows(this)" style="width: 100%; padding: 12px 16px; font-size: 16px;
+                          border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;"/>
+        </div>
+    </xpath>
+    <xpath expr="//tbody[@class='room-list-contents']" position="after">
+        <script type="text/javascript">
+            function filterRoomRows(input) {
+                let filter = input.value.toUpperCase();
+                let rows = document.querySelectorAll(".room-list-contents tr");
+                rows.forEach(row => {
+                    let firstCell = row.querySelector("td");
+                    if (firstCell) {
+                        let txt = firstCell.textContent || firstCell.innerText;
+                        row.style.display = txt.toUpperCase().includes(filter) ? "" : "none";
+                    }
+                });
+            }
+        </script>
+    </xpath>
+</t>
+
+</templates>
