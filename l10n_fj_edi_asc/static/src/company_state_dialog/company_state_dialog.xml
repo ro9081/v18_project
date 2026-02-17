@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+  <t t-name="l10n_fj_edi_asc.OrderReceiptVerified" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+    <xpath expr="//div[@class='before-footer']" position="before">
+        <div class="pos-receipt-verification text-center my-2">
+             <t t-if="taxTotals and taxTotals.order_sign == -1">
+    <t t-set="now" t-value="new Date()" />
+    <div class="pos-receipt-custom-refund my-2" style="font-size: 12px;">
+        <table style="width: 100%;">
+            <!-- Date and Time Row -->
+            <tr>
+                <td style="text-align: left; width: 50%; padding-right: 10px;">
+                    DATE: <t t-esc="now.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })" />
+                </td>
+                <td style="text-align: left; width: 50%; padding-right: 10px;">
+                    TIME: <t t-esc="now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })" />
+                </td>
+            </tr>
+
+            <!-- Other Details -->
+            <tr>
+                <td style="text-align: left;">BATCH: Testing001BATCH</td>
+                <td style="text-align: left;">INV 4101</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">STAN: <t t-out="props.data.partner?.id || 'N/A'" /></td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">ACCOUNT TYPE: CREDIT</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">RRN:</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">VISA:</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">VISA DEBIT:</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">RRN:</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">-------------------------------------</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">APPROVED OO</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">APPROVED CODE</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;">ARQC:</td>
+            </tr>
+        </table>
+    </div>
+</t>
+            <t t-if="props.data.name">
+                <strong>✔ Verified by POS System</strong>
+                <t t-out="props.data.invoice_no || 'N/A==========='" />
+                <br/>
+                <img t-att-src="'data:image/png;base64,' + props.data.verification_qr"
+                     style="max-height: 400px; max-width: 400px;" alt="QR Code"/>
+            </t>
+        </div>
+    </xpath>
+  </t>
+    <t t-name="l10n_fj_edi_asc.OrderReceiptVerified" t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension">
+
+        <xpath expr="//div[@class='pos-receipt-contact']/div[last()]" position="after">
+        <t t-set="now" t-value="new Date()" />
+        <div class="pos-receipt-custom-code my-2" style="font-size: 12px;">
+    <table style="width: 100%;">
+        <tr>
+            <td style="text-align: left; width: 50%; padding-right: 10px;">DATE: <t t-esc="now.toLocaleDateString('en-GB').replaceAll('/', '')" /></td>
+            <td style="text-align: left; width: 50%; padding-right: 10px;">TIME: <t t-esc="now.toLocaleTimeString('en-GB', {hour: '2-digit', minute:'2-digit'})" /></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; width: 50%; padding-right: 10px;">TAX INVOICE: <t t-out="props.data.partner?.id || 'N/A'" /></td>
+            <td style="text-align: left; width: 50%; padding-right: 10px;">CUSTOMER ID: <t t-out="props.data.partner?.id || 'N/A'" /></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; width: 50%; padding-right: 10px;">SALES PERSON: <t t-esc="props.data.salesperson || 'N/A'" /></td>
+        </tr>
+    </table>
+</div>
+    </xpath>
+  </t>
+</templates>
+

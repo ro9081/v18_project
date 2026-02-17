@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="TicketScreen_inherit_ultiqa" t-inherit="point_of_sale.TicketScreen" t-inherit-mode="extension">
+       <xpath expr="//InvoiceButton" position="after">
+
+        <button class="btn btn-secondary btn-lg py-5" t-on-click="onClickPopup">
+            <i class="fa fa-pencil-square me-1" role="img" aria-label="Copy Sale" title="Copy Sale"/>
+            Copy Sale
+        </button>
+
+    </xpath>
+    </t>
+</templates>

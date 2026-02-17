@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_pos_pos_form_form_inherited_ultiqa" model="ir.ui.view">
+        <field name="name">pos.order.ultiqa.form</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='fiscal_position_id']" position="after">
+                <field name="ultiqa_product_label" invisible="1"/>
+                <field name="ultiqa_tin" invisible="1"/>
+                <field name="ultiqa_buyer_cost_center_id" invisible="1"/>
+                <field name="ultiqa_transaction" invisible="1"/>
+                <field name="ultiqa_sdc_time" invisible="1"/>
+                <field name="ultiqa_sdc_invoice_no" invisible="1"/>
+                <field name="ultiqa_invoice_counter" invisible="1"/>
+                <field name="ultiqa_tax_labels" invisible="1"/>
+                <field name="ultiqa_tax_lines" invisible="1"/>
+                <field name="ultiqa_total_tax" invisible="1"/>
+                <field name="ultiqa_invoice_no" invisible="1"/>
+                <field name="ultiqa_verification_qr" invisible="1"/>
+                <field name="ultiqa_ref_doc_number" invisible="1"/>
+                <field name="ultiqa_ref_doc_date" invisible="1"/>
+                <field name="ultiqa_copy_sale"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

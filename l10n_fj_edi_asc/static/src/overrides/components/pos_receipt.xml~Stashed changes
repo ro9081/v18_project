@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <xpath expr="//div[@class='before-footer']" position="after">
+    <t t-if="props.data.verification_code">
+        <div class="pos-receipt-left-padding mt-2">
+            <strong>Verification Code:</strong>
+            <span t-out="props.data.verification_code"/>
+        </div>
+    </t>
+</xpath>
+</templates>

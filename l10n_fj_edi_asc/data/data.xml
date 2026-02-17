@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="ultiqa_action_create_invoice_from_draft" model="ir.actions.server">
+        <field name="name">Proforma Invoice</field>
+        <field name="model_id" ref="l10n_fj_edi_asc.model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">action = records.action_create_invoice_from_draft()
+        </field>
+    </record>
+    <record id="ultiqa_action_create_refund_from_draft" model="ir.actions.server">
+        <field name="name">Proforma Invoice Refund</field>
+        <field name="model_id" ref="l10n_fj_edi_asc.model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">action = records.action_create_refund_from_draft()
+        </field>
+    </record>
+</odoo>

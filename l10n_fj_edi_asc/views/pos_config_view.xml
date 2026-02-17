@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_config_view_form_inherited_ultiqa" model="ir.ui.view">
+        <field name="name">pos.config.view.form.inherit.custom.receipts.for.pos.ultiqa</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//setting[@id='other_devices']" position="after">
+                <div id="fj_ultiqa_integration_section_asc">
+                    <block title="Fiji Electronic Invoicing" id="fj_localization_asc">
+                        <setting name="electronic_invoices_fj_asc"
+                                 help="Connect to FRCS (Fiji National Informatics Center) to submit invoices on posting."
+                                 company_dependent="1">
+                            <field name="module_l10n_fj_edi_asc"/>
+
+                            <div class="content-group" invisible="not module_l10n_fj_edi_asc">
+                                <div class="row mt16">
+                                    <label for="ultiqa_pfx_path"
+                                           style="white-space: nowrap"
+                                           string="PFX Certificate Path"
+                                           class="col-3 o_light_label"/>
+                                    <div class="col">
+                                        <field name="ultiqa_pfx_path" nolabel="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="row mt8">
+                                    <label for="ultiqa_pfx_password"
+                                           style="white-space: nowrap"
+                                           string="PFX Password"
+                                           class="col-3 o_light_label"/>
+                                    <div class="col">
+                                        <field name="ultiqa_pfx_password" password="True" nolabel="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="row mt8">
+                                    <label for="ultiqa_pac_value"
+                                           style="white-space: nowrap"
+                                           string="PAC"
+                                           class="col-3 o_light_label"/>
+                                    <div class="col">
+                                        <field name="ultiqa_pac_value" nolabel="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="row mt8">
+                                    <label for="ultiqa_base_url"
+                                           style="white-space: nowrap"
+                                           string="URL"
+                                           class="col-3 o_light_label"/>
+                                    <div class="col">
+                                        <field name="ultiqa_base_url" nolabel="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="row mt8">
+                                    <label for="asc_allow_pdf_download"
+                                           style="white-space: nowrap"
+                                           string="Print Backend Invoice"
+                                           class="col-3 o_light_label"/>
+                                    <div class="col">
+                                        <field name="asc_allow_pdf_download" nolabel="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

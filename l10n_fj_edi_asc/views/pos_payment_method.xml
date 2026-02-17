@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="ultiqa_pos_payment_method_view_form_inherited" model="ir.ui.view">
+        <field name="name">pos.payment.method.ultiqa.form</field>
+        <field name="model">pos.payment.method</field>
+        <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_method_type']" position="after">
+                <field name="vms_payment_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

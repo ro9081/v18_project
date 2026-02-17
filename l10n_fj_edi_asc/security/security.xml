@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="group_pos_config_admin_only" model="res.groups">
+        <field name="name">POS Config Admin Access Default Record</field>
+    </record>
+    <record id="pos_config_admin_access" model="ir.rule">
+        <field name="name">Admin POS Config Access Default Record</field>
+        <field name="model_id" ref="point_of_sale.model_pos_config"/>
+        <field name="domain_force">[('name', '!=', 'Default')]</field>
+        <field name="groups" eval="[(4, ref('l10n_fj_edi_asc.group_pos_config_admin_only'))]"/>
+    </record>
+</odoo>

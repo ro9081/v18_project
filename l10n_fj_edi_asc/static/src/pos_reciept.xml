@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="l10n_fj_edi_asc.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="//div[@class='pos-receipt p-2']" position="replace">
+            <div class="pos-receipt p-2">
+                <!-- Static Header -->
+                <div class="receipt-header">
+                    <h3 class="text-center">
+                        <strong>EXTRA SUPERMARKET</strong>
+                    </h3>
+                    <h6 class="text-center">Flagstaff Suva</h6>
+                    <h6 class="text-center">TIN No: 50-55049-0-6</h6>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <span>Flagstaff Plaza, Bau</span>
+                            <br />
+                            <span>Street, Suva</span>
+                        </div>
+                        <div>
+                            <span>Phone: 3387142</span>
+                            <br />
+                            <span>FAX: 3387143</span>
+                            <br />
+                            <span>info@extra.com.fj</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-center">
+                        <strong>ORIGINAL</strong>
+                    </h4>
+                    <h4 class="text-center">TAX INVOICE</h4>
+                    <span>____________________________________________________________________</span>
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            <span>007-003218153</span>
+                            <br />
+                            <span>08-07-2025 21:01:31</span>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span>Served by : Alanieta Tabucinavi</span>
+                            <br />
+                        </div>
+                        <span>____________________________________________________________________</span>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="text-center">========== <strong>FISCAL INVOICE</strong>==========
+                    </h5>
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            <span>TIN :</span>
+                            <br />
+                            <span>
+                            <t t-esc="props.data.vmsSeData.posID" /></span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Company :</span>
+                            <br />
+                            <span>EXTRA PTE LIMITED</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Store :</span>
+                            <br />
+                            <span>Flagstaff Plaza</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Address :</span>
+                            <br />
+                            <span>Bau Street</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>District :</span>
+                            <br />
+                            <span>Rewa</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Cashier TIN :</span>
+                            <br />
+                            <span>04366[20-44064-0-0]</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>POS number :</span>
+                            <br />
+                            <span>007-0003218153</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>POS time :</span>
+                            <br />
+                            <span>2025-07-08 21:01:31</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="text-center">---------- <strong>NORMAL SALE</strong>-----------
+                    </h5>
+                    <h6>Items</h6>
+                    <span>.....................................................................................................................</span>
+                    <div>
+                        <OrderWidget t-if="props.data.orderlines?.length" lines="props.data.orderlines"
+                            t-slot-scope="scope" generalNote="props.data.generalNote or ''"
+                            screenName="props.data.screenName">
+                            <t t-set="line" t-value="scope.line" />
+                            <Orderline basic_receipt="props.basic_receipt" line="omit(scope.line, 'customerNote')"
+                                class="{ 'px-0': true }" showTaxGroupLabels="showTaxGroupLabels">
+                                <li t-if="line.customerNote" class="customer-note w-100 p-2 my-1 rounded text-break">
+                                    <i class="fa fa-sticky-note me-1" role="img" aria-label="Customer Note"
+                                        title="Customer Note" />
+                                    <t t-esc="line.customerNote" />
+                                </li>
+                            </Orderline>
+                        </OrderWidget>
+                    </div>
+                    <span>.....................................................................................................................</span>
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            <span>Total Purchase</span>
+                            <br />
+                            <span>
+                                <t t-if="!props.basic_receipt">
+                                    <t t-set="taxTotals" t-value="props.data.taxTotals" />
+                                    <div class="d-flex justify-content-end">
+                                        <span
+                                            t-esc="props.formatCurrency(taxTotals.order_sign * taxTotals.order_total)" />
+                                    </div>
+
+                                    <t t-if="'order_rounding' in taxTotals">
+                                        <div class="d-flex justify-content-between">
+                                            <span
+                                                t-esc="props.formatCurrency(taxTotals.order_sign * taxTotals.order_to_pay)" />
+                                        </div>
+                                    </t>
+                                </t>
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Payment Method</span><br />
+                            <span>OTHER</span>
+                        </div>
+                        <span>.....................................................................................................................</span>
+                        <div class="d-flex justify-content-between">
+                            <span>Total Tax :</span><br />
+                            <span>
+                                <t t-if="taxTotals and taxTotals.has_tax_groups">
+                                <t t-foreach="taxTotals.subtotals" t-as="subtotal" t-key="subtotal.name">
+                                    <div t-foreach="subtotal.tax_groups" t-as="tax_group" t-key="tax_group.id" class="d-flex justify-content-between">
+                                        <span t-esc="tax_group.group_name"/>
+                                        <span t-esc="props.formatCurrency(tax_group.tax_amount_currency)"/>
+                                    </div>
+                                </t>
+                            </t>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+
+                <span>.....................................................................................................................</span>
+
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <span>SDC Time :</span><br />
+                        <span>2025-07-08 21:02:25</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>SDC Invoice No :</span><br />
+                        <span>7HV5FDSH-7HV5FDSH-101267</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Invoice Counter :</span><br />
+                        <span>100168/101267NS</span>
+                    </div>
+                </div>
+
+                <span>.....................................................................................................................</span>
+
+                <div>
+                    <h5 class="text-center">==========<strong>END OF FISCAL INVOICE</strong>==========</h5>
+                </div>
+                
+            </div>
+        </xpath>
+    </t>
+</templates>

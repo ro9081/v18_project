@@ -1,0 +1,42 @@
+/** @odoo-module **/
+
+import { patch } from "@web/core/utils/patch";
+import { OrderReceipt } from "@point_of_sale/app/screens/receipt_screen/receipt/order_receipt";
+
+patch(OrderReceipt.prototype, {
+    async setup() {
+        await super.setup();
+        const order = this.props.order;
+
+        if (order.server_id) {
+            let qr = "";
+            let attempts = 0;
+            const maxAttempts = 10;  // ~10 retries
+            const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+            while (!qr && attempts < maxAttempts) {
+                try {
+                    qr = await this.rpc({
+                        model: 'pos.order',
+                        method: 'get_verification_qr',
+                        args: [order.server_id],
+                    });
+                    if (qr) {
+                        order.verification_qr = qr;
+                        break;
+                    }
+                } catch (e) {
+                    console.error("QR Fetch attempt failed", e);
+                }
+
+                attempts++;
+                await delay(1000);  // wait 1 second before next attempt
+            }
+
+            if (!qr) {
+                console.warn("QR code not available after retries");
+                order.verification_qr = "";  // fallback empty
+            }
+        }
+    },
+});

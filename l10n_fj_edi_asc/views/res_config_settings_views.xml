@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_l10n_fj_edi_asc" model="ir.ui.view">
+        <field name="name">res.config.settings.form.inherit.l10n_in_edi</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='account']/block" position="after">
+                 <div id="fj_ultiqa_integration_section_asc">
+                    <block title="FJ Integration" id="fj_localization_asc">
+                        <setting name="electronic_invoices_fj_asc"
+                                 help="Connect to NIC (National Informatics Center) to submit invoices on posting."
+                                 company_dependent="1"
+                                 documentation="/applications/finance/fiscal_localizations/india.html#india-e-invoicing">
+                            <field name="module_l10n_fj_edi_asc"/>
+                        </setting>
+                        <div class="content-group" invisible="not module_l10n_fj_edi_asc">
+                        <div class="mt16 row">
+                            <label for="ultiqa_pfx_path" string="PFX Certificate Path" class="col-3 col-lg-3 o_light_label"/>
+                            <field name="ultiqa_pfx_path" nolabel="1"/>
+                        </div>
+                        <div class="row">
+                            <label for="ultiqa_pfx_password" string="PFX Password" class="col-3 col-lg-3 o_light_label"/>
+                            <field name="ultiqa_pfx_password" password="True" nolabel="1"/>
+                        </div>
+                            <div class="row">
+                                <label for="ultiqa_pac_value" string="PAC"
+                                       class="col-3 col-lg-3 o_light_label"/>
+                                <field name="ultiqa_pac_value"  nolabel="1"/>
+                            </div>
+                            <div class="row">
+                                <label for="ultiqa_base_url" string="URL"
+                                       class="col-3 col-lg-3 o_light_label"/>
+                                <field name="ultiqa_base_url"  nolabel="1"/>
+                            </div>
+                    </div>
+                    </block>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
